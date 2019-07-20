@@ -17,6 +17,8 @@ class Header extends Component{
             <ul className="list-inline">
               <li>Search</li>
               <li><button className="btn--p-hollow mjl-btn" onClick={this.triggerModal.bind(this)}>Get Started</button></li>
+              <li id="loginModalBtn" onClick={this.triggerModal.bind(this)}>Sigin in</li>
+              <li>Get Started</li>
 
               <li><Link to="/contact">Notification</Link></li>
               <li className="popover-p-wrap">
