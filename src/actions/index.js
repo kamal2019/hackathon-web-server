@@ -11,5 +11,12 @@ export const signUp = (formProps, callback) => async dispatch => {
   }catch(e){
     console.log("Error caught", e);
     dispatch({type: AUTH_ERROR, payload: 'Email in use'});
+
+    // Persisting login state, so that authentication is not lost when refreshing the page.
+    localStorage.setItem('token', response.data.token);
+    callback();
+  }catch(e){
+    //console.log("Error caught", e);
+    dispatch({type: AUTH_ERROR, payload: 'Email already in use'});
   }
 };

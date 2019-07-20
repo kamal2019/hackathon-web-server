@@ -10,10 +10,12 @@ class Home extends Component {
   }
   render(){
     return <h1>Hi this is home</h1>;
-  }
 }
 
 function mapStateToProps(state){
   return {auth: state.auth};
 }
+  return { auth: state.auth };
+}
+
 export default connect(mapStateToProps)(Home);
