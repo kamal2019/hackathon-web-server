@@ -8,7 +8,7 @@ const email = value =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
   'Please enter a valid email' : undefined
 
-class SignInForm extends React.Component{
+class SignUpForm extends React.Component{
 
   renderField(field){
     const {meta} = field;
@@ -27,18 +27,23 @@ class SignInForm extends React.Component{
       </div>
     );
   }
-
-  onSubmit = async formProps => {
-    const swear =  await new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
-      return formProps;
+  onSubmit = formProps => {
+    this.props.signUp(formProps, () => {
+      window.location.href = "/";
     });
-    return swear;
   }
 
   render(){
     const { handleSubmit, submitting, invalid } = this.props;
     return (
         <form onSubmit={handleSubmit(this.onSubmit)}>
+          <Field
+          type="text"
+          field="input"
+          label="Your full name"
+          name="fullname"
+          component={this.renderField}/>
+
           <Field
           type="input"
           validate={email}
@@ -55,7 +60,7 @@ class SignInForm extends React.Component{
           component={this.renderField}/>
 
           <br/>
-          <button type="submit" disabled={invalid || submitting} className="mjl-btn btn--dark">Log In</button>
+          <button type="submit" disabled={invalid || submitting} className="mjl-btn btn--dark">Sign Up</button>
         </form>
     )
   }
@@ -66,7 +71,10 @@ class SignInForm extends React.Component{
  */
 function validate(values){
   const errors = {};
-  // Validate the inputs from 'values'
+
+  if (!values.fullname){
+    errors.fullname = "Please enter your full name";
+  }
   if (!values.email){
     errors.email = "Please enter a valid email";
   }
@@ -81,6 +89,6 @@ export default compose(
   connect(null, actions),
   reduxForm({
     validate,
-    form: 'signInForm'
-  })
-)(SignInForm);
+    form: 'signUpForm'
+  }),
+)(SignUpForm);

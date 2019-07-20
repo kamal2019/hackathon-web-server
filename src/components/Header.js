@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import './Header.css';
 
 class Header extends Component{
+  triggerModal(){
+    this.props.triggerModal();
+  }
   render(){
     return (
       <div>
         <div className="nav-top-bar">
           <div className="tb-flex1">
-            <a href="/">Logo</a>
+            <Link to="/">Logo</Link>
           </div>
           <div className="tb-flex0">
             <ul className="list-inline">
               <li>Search</li>
-              <li id="loginModalBtn">Sigin in</li>
-              <li>Get Started</li>
+              <li><button className="btn--p-hollow mjl-btn" onClick={this.triggerModal.bind(this)}>Get Started</button></li>
 
-              <li>Notification</li>
+              <li><Link to="/contact">Notification</Link></li>
               <li className="popover-p-wrap">
                 <div id="popUserPanel" className="popover-userIcon">User Profile</div>
                 <div className="popover-userAction" id="pUserActionPanel" style={{display: 'none'}}>
